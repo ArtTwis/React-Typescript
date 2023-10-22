@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "./components/Button";
 import Greet from "./components/Greet";
 import Heading from "./components/Heading";
@@ -6,6 +7,7 @@ import Oscar from "./components/Oscar";
 import Person from "./components/Person";
 import Status from "./components/Status";
 import UserList from "./components/UserList";
+import Container from "./components/Container";
 
 const App = () => {
   const PersonName = {
@@ -28,6 +30,8 @@ const App = () => {
     },
   ];
 
+  const [inputValue, setInputValue] = useState("");
+  
   return (
     <div className="App">
       <Greet name="Twinkle" messageCount={20} isLogin={true} />
@@ -50,9 +54,11 @@ const App = () => {
         console.log("Button is clicked!", event)
       }} />
       
-      <Input type="text" className="input-text" placeHolder="Enter text" handleChange={(event) => {
-        console.log("something is typed!", event)
+      <Input type="text" value={inputValue} className="input-text" placeHolder="Enter text" handleChange={(event) => {
+        setInputValue(event.target.value);
       }} />
+
+      <Container styles={{border: '1px solid black', padding: '8px 12px'}} containerText='This is a Conatiner with a basic text!' />
     </div>
   );
 };

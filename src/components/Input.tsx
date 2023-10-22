@@ -13,7 +13,7 @@ const Input = (props: InputProps) => {
       type = "text",
       id = "",
       className = "",
-      placeHolder = "",
+      placeHolder = "Enter Input",
       value = "",
       handleChange,
     } = props;
