@@ -1,13 +1,21 @@
+import { type } from "os";
 import React, { useReducer } from "react";
 
 type CounterState = {
-    count: number;
-}
+  count: number;
+};
 
-type CounterAction = {
-    type: string;
-    payload: number
-}
+type UpdateAction = {
+  type: "Increment" | "Decrement";
+  payload: number;
+};
+
+type ResetAction = {
+  type: "Reset";
+};
+
+type CounterAction = UpdateAction | ResetAction;
+// Discriminated Unions in Typescript
 
 const initialState: CounterState = { count: 0 };
 
@@ -17,23 +25,35 @@ function reducer(state: CounterState, action: CounterAction): CounterState {
       return { count: state.count + action.payload };
     case "Decrement":
       return { count: state.count - action.payload };
+    case "Reset":
+      return initialState;
     default:
-        return { count: state.count }
+      return { count: state.count };
   }
-};
+}
 
 const Counter = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const handleIncrement = () => dispatch({type: 'Increment', payload: 10})
-
-  const handleDecrement = () => dispatch({type: 'Decrement', payload: 10})
+  const handleIncrement = () => dispatch({ type: "Increment", payload: 10 });
+  const handleDecrement = () => dispatch({ type: "Decrement", payload: 10 });
+  const handleReset = () => dispatch({ type: "Reset" });
 
   return (
     <>
       <div className="container-text">Count : {state.count}</div>
-      <button className="btn" onClick={handleIncrement}> Increment </button>
-      <button className="btn" onClick={handleDecrement}> Decrement </button>
+      <button className="btn" onClick={handleIncrement}>
+        {" "}
+        Increment{" "}
+      </button>
+      <button className="btn" onClick={handleDecrement}>
+        {" "}
+        Decrement{" "}
+      </button>
+      <button className="btn" onClick={handleReset}>
+        {" "}
+        Reset{" "}
+      </button>
     </>
   );
 };
